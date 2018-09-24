@@ -1,0 +1,35 @@
+---
+title: "Lecture prep"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+##Equinor og Hydro
+
+```{r main, warning = FALSE, echo = FALSE, message = FALSE}
+library(readr)
+library(ggplot2)
+
+equinor <- read_csv("https://www.netfonds.no/quotes/paperhistory.php?paper=EQNR.OSE&csv_format=csv", col_types = cols(quote_date = col_date(format = "%Y%m%d")))
+
+hydro <- read_csv("https://www.netfonds.no/quotes/paperhistory.php?paper=NHY.OSE&csv_format=csv", 
+col_types = cols(quote_date = col_date(format = "%Y%m%d")))
+
+felles <- merge(equinor,hydro, by="quote_date")
+
+ggplot() +
+    geom_line(data = felles, aes(x = quote_date, y =close.x), colour = "red" ) +   #Equinor
+    geom_line(data = felles, aes(x = quote_date, y =close.y), colour = "blue") +    #Hydro
+    xlab("Date") + ylab("Closing price") #Bytter navn på x og y verdien
+```
+
+
+
+
+
+
