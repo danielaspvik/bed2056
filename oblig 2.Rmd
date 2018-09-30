@@ -1,0 +1,86 @@
+---
+title: "Obligatory Assignment 3"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r main, warning = FALSE, echo = FALSE, message = FALSE}
+
+library(readr)
+install.packages("dplyr")
+library(dplyr)
+
+#Laster inn data
+by_county <- read_delim("http://data.ssb.no/api/v0/dataset/95274.csv?lang=no", 
+    ";", escape_double = FALSE, locale = locale(encoding = "ISO-8859-1"), 
+    trim_ws = TRUE)
+
+whole_country <- read_delim("http://data.ssb.no/api/v0/dataset/95276.csv?lang=no", 
+    ";", escape_double = FALSE, locale = locale(encoding = "ISO-8859-1"), 
+    trim_ws = TRUE)
+
+
+
+
+names(by_county) <- c("region","maaned","statistikkvariabel","pris") #Bytter navn for å unngå feil
+names(whole_country) <- c("region","maaned","statistikkvariabel","pris") #Bytter navn for å unngå feil
+
+kombinert <- merge(by_county,whole_country, by="maaned")
+
+kombinert <- kombinert[ which(kombinert$pris.x > 0 ) , ] #Filtrer ut 0 
+kombinert <- kombinert[ which(kombinert$pris.y > 0 ) , ] #Filtrer ut 0
+
+#viser pris per rom for fylkene
+kombinert_prisx  <-  filter(kombinert, statistikkvariabel.x == 'Pris per rom (kr)')
+
+
+#viser pris per rom for hele landet
+kombinert_prisy  <-  filter(kombinert, statistikkvariabel.y == 'Pris per rom (kr)')
+
+
+
+
+
+mean(kombinert_prisx$pris.x) #Gjennomsnittspris fylke gjennomsnitt
+mean(kombinert_prisy$pris.y) #Gjennomsnittspris hele landet
+
+
+```
+
+```{r fylker, warning = FALSE, echo = FALSE, message = FALSE}
+Ostfold  <-filter(kombinert_prisx, region.x == '01 Østfold') 
+Akershus <-filter(kombinert_prisx, region.x == '02 Akershus')
+Oslo <-    filter(kombinert_prisx, region.x == '03 Oslo')
+Hedmark <- filter(kombinert_prisx, region.x == '04 Hedmark')
+Oppland <- filter(kombinert_prisx, region.x == '05 Oppland')
+Buskerud <-filter(kombinert_prisx, region.x == '06 Buskerud')
+Vestfold <-filter(kombinert_prisx, region.x == '07 Vestfold')
+Telemark<- filter(kombinert_prisx, region.x == '08 Telemark')
+Telemark<- filter(kombinert_prisx, region.x == '08 Telemark')
+Aust_Agder<-filter(kombinert_prisx, region.x == '09 Aust-Agder')
+Vest_Agder <- filter(kombinert_prisx, region.x == '10 Vest-Agder')
+Rogaland <- filter(kombinert_prisx, region.x == '11 Rogland')
+Hordaland <- filter(kombinert_prisx, region.x == '12 Hordaland')
+Sogn_og_Fjordane <- filter(kombinert_prisx, region.x == '14 Sogn og Fjordane')
+More_og_Romsdal <- filter(kombinert_prisx, region.x == '15 M<U+00F8>re og Romsdal')
+Trøndelag <- filter(kombinert_prisx, region.x == 'Trøndelag')
+Nord_Trøndelag <- filter(kombinert_prisx, region.x == '17 Nord-Tr<U+00F8>ndelag (-2017)')
+Troms <- filter(kombinert_prisx, region.x == '19 Troms - Romsa')
+Finnmark <- filter(kombinert_prisx, region.x == '20 Finnmark - Finnm<U+00E1>rku')
+Svalbard <- filter(kombinert_prisx, region.x == '21 Svalbard')
+Trøndelag50 <- filter(kombinert_prisx, region.x == '50 Tr<U+00F8>ndelag')
+  
+
+
+mean(kombinert_prisx$pris.x) 
+
+
+
+
+```
