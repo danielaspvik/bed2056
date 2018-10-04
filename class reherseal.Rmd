@@ -1,0 +1,56 @@
+---
+title: "Class rehearsal"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r oppgave 1, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, include=FALSE}
+install.packages("rvest")
+install.packages("tidyverse")
+library(rvest)
+library(stringi)
+library(tidyverse)
+
+# with a variable called webpage:
+webpage <- read_html("https://www.datacamp.com/courses/tech:r")
+webpage
+str(webpage)
+
+# Extract all of the sector names from the "Stock Sectors" table
+
+kursliste <- webpage %>% html_nodes("div h4") %>% html_text()
+kursliste <- tibble(kursliste)
+
+
+```
+
+
+```{r oppgave2, include=FALSE}
+install.packages("rvest")
+install.packages("tidyverse")
+install.packages("rlist")
+library(rvest)
+library(stringi)
+library(tidyverse)
+library(rlist) 
+
+# with a variable called webpage:
+page <- read_html("http://timeplan.uit.no/emne_timeplan.php?year=2018&module%5B%5D=BED-2056-1&week=30-52&View=list")
+page
+str(page)
+
+# Extract all of the sector names from the "Stock Sectors" table
+
+table <- html_nodes(page, "table")
+table <- html_table(table, fill = TRUE)
+dframe <- list.stack(table)  
+
+```
+
+
+

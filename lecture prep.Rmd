@@ -20,6 +20,7 @@ equinor <- read_csv("https://www.netfonds.no/quotes/paperhistory.php?paper=EQNR.
 hydro <- read_csv("https://www.netfonds.no/quotes/paperhistory.php?paper=NHY.OSE&csv_format=csv", 
 col_types = cols(quote_date = col_date(format = "%Y%m%d")))
 
+
 felles <- merge(equinor,hydro, by="quote_date")
 
 ggplot() +

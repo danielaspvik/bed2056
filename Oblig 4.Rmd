@@ -1,0 +1,40 @@
+---
+title: "Oblig 4"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r install, include=FALSE}
+#install.packages("rvest")
+#install.packages("tidyverse")
+#install.packages("XML")
+library(rvest)
+library(stringi)
+library(tidyverse)
+library(XML)
+library(knitr)
+```
+
+```{r main, include=FALSE}
+#henter websiden fra kilden
+page <- read_html("https://w2.brreg.no/kunngjoring/kombisok.jsp?datoFra=01.10.2001&datoTil=03.10.2018&id_region=100&id_fylke=19&id_kommune=-+-+-&id_niva1=51&id_niva2=-+-+-&id_bransje1=0")
+
+table <- html_nodes(page, "table") 
+table <- html_table(table, fill = TRUE) #parser html-tabellen til den data frame 
+#dframe <- list.stack(table)  
+
+head(table) #ser på innholdet i listen
+
+sortert <- table[[5]] #henter ut element 5 fra listen
+rydder <- sortert[2:8] # rad 2 til 8
+
+#filtrer slik at vi kun får bedrifter
+kun_bedrifter <- rydder[ which(rydder$X4 > 100000000 & rydder$X4 > 300000) , ] 
+
+```
+
+
+```{r grafisk, include=TRUE}
+kable(kun_bedrifter[2:6,], caption = "De 5 nyligste konkursbedriftene") # De 5 nyligste konkursbedriftene
+```
