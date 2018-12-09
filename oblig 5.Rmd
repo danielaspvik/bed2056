@@ -1,0 +1,79 @@
+---
+title: "Oblig 5"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r install, include=FALSE}
+install.packages("dplyr")
+install.packages("rccmisc")
+library(dplyr)
+library(readr)
+library(rccmisc)
+library(ggplot2)
+
+```
+
+
+```{r main, include=FALSE}
+start <- c(13,475,504) #Definerer starten
+end <- c(14,475,507) #Definerer slutten
+col_names <- c("Birth_Month","Sex_of_Infant", "Birth_Weight_Grams") #Lager beskrivende kolonner
+
+Nat2017PublicUS <-read_fwf("~/Desktop/Nat2017PublicUS.c20180516.r20180808.txt",fwf_positions(start,end ,col_names)) #Laster inn relevante deler av dataen fra width file
+
+
+Gutter <-  filter(Nat2017PublicUS, Sex_of_Infant == 'M') #Datasett for gutter
+Jenter <-  filter(Nat2017PublicUS, Sex_of_Infant == 'F') #Datasett for jenter
+
+porportion <- sum(complete.cases(Gutter)) / sum(complete.cases(Jenter)) #Deler kun på valid data
+porportion #proportion of boys to girls
+
+Nat2017PublicUS$Birth_Weight_Grams <- as_numeric(Nat2017PublicUS$Birth_Weight_Grams)
+Average <- mean(Nat2017PublicUS$Birth_Weight_Grams) 
+Average #Average weight
+
+
+# d <- sm.density.compare(as_numeric(Gutter$Birth_Weight_Grams),as_numeric(Jenter$Birth_Weight_Grams)) #Bruker as_numeric for å erklær at vi håndterer tall
+
+names(Nat2017PublicUS)
+
+par(mfrow = c(2,1)) #Gjør slik at vi kan vise begge ved siden av hverandre
+plot(density(as_numeric(Gutter$Birth_Weight_Grams))) # Plot for gutter
+plot(density(as_numeric(Jenter$Birth_Weight_Grams))) # Plot for jenter
+#Observerer at de er forskjellige
+
+#Måneder
+Januar <-  filter(Nat2017PublicUS, Birth_Month == '01') 
+Februar <-  filter(Nat2017PublicUS, Birth_Month == '02') 
+Mars <-  filter(Nat2017PublicUS, Birth_Month == '03') 
+April <-  filter(Nat2017PublicUS, Birth_Month == '04') 
+Mai <-  filter(Nat2017PublicUS, Birth_Month == '05') 
+Juni <-  filter(Nat2017PublicUS, Birth_Month == '06') 
+Juli <-  filter(Nat2017PublicUS, Birth_Month == '07') 
+August <-  filter(Nat2017PublicUS, Birth_Month == '08') 
+September <-  filter(Nat2017PublicUS, Birth_Month == '09') 
+Oktober <-  filter(Nat2017PublicUS, Birth_Month == '10') 
+November <-  filter(Nat2017PublicUS, Birth_Month == '11') 
+Desember <-  filter(Nat2017PublicUS, Birth_Month == '12') 
+
+mean(Januar$Birth_Weight_Grams) 
+mean(Februar$Birth_Weight_Grams) 
+mean(Mars$Birth_Weight_Grams) 
+mean(April$Birth_Weight_Grams) 
+mean(Mai$Birth_Weight_Grams) 
+mean(Juni$Birth_Weight_Grams) 
+mean(Juli$Birth_Weight_Grams) 
+mean(August$Birth_Weight_Grams) 
+mean(September$Birth_Weight_Grams) 
+mean(Oktober$Birth_Weight_Grams) 
+mean(November$Birth_Weight_Grams) 
+mean(Desember$Birth_Weight_Grams) 
+#Gjennomsnittet varierer
+
+```
+
+
+

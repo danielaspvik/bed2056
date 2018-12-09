@@ -1,0 +1,71 @@
+---
+title: "Oblig 6"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r install, include=FALSE}
+install.packages("dplyr")
+install.packages("reshape")
+library(dplyr)
+library(ggplot2)
+library(plyr)
+library(reshape)
+
+```
+
+
+```{r MAIN, include=FALSE}
+#Lager dataset
+DS = tribble(
+ ~fk_account_code, ~Ansvar, ~fk_function_code, ~fk_project_code, ~amount,
+ 101030,40220,"Det",3432,1493.00,
+ 101030,40220,"Met",3586,2827.00,
+ 101030,40320,"Det",3456,49440.00,
+ 101030,40330,"Sal",NA,870716.00,
+ 101030,40350,"Met",NA,559928.00,
+ 101030,40360,"Sal",NA,125534.00,
+ 101030,40280,"Pol",NA,251611.00)
+
+#Task 1,1
+NY <- DS[,-c(4) ] #Fjerner fk_project_code
+
+#Task 1,2
+fire_null_to <- DS[ -c(3,4,5,6), ] #Fjerner alt over 402
+fire_null_tre <- DS[ -c(1,2,7), ] #Fjerner alt som ikke er 403
+sum(fire_null_to$amount) #SUM 402 osv.
+sum(fire_null_tre$amount) #SUM 403 osv.
+
+#Task 1,3 
+Det_Sal <- DS #Lager et nytt dataset labels
+Met <- DS
+Pol <- DS
+
+Det_Sal <- DS[-c(2,5,7), ] 
+Det_Sal$fk_function_code <-"supplies"
+Met <- DS[-c(1,3,4,6,7), ] 
+Met$fk_function_code <-"inventories"
+Pol <- DS[-c(1,2,3,4,5,6), ] 
+Pol$fk_function_code <-"other expenses" 
+
+
+
+
+
+
+
+#Task 2 
+
+#Calculate the share of sales per product per year. The sum over the 3 shares per year is 100.
+
+df <- data.frame(Product=gl(3,10,labels=c("A","B", "C")), 
+                Year=factor(rep(2002:2011,3)), 
+                Sales=1:30)
+
+test <-  
+
+
+  
+#Klarte ikke å fullføre oppgaven
+
