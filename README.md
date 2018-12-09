@@ -1,5 +1,5 @@
-# bed2056
-<<<<<<< HEAD
-=======
+##BED2056
 
->>>>>>> f8285be712cebc3f22a866ca469f197e2e0ac043
+This is the folder for my project files for the subject BED2056 at UiT
+
+-Daniel Aspvik
