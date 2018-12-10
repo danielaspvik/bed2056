@@ -45,33 +45,17 @@ plot(density(as_numeric(Gutter$Birth_Weight_Grams))) # Plot for gutter
 plot(density(as_numeric(Jenter$Birth_Weight_Grams))) # Plot for jenter
 #Observerer at de er forskjellige
 
-#Måneder
-Januar <-  filter(Nat2017PublicUS, Birth_Month == '01') 
-Februar <-  filter(Nat2017PublicUS, Birth_Month == '02') 
-Mars <-  filter(Nat2017PublicUS, Birth_Month == '03') 
-April <-  filter(Nat2017PublicUS, Birth_Month == '04') 
-Mai <-  filter(Nat2017PublicUS, Birth_Month == '05') 
-Juni <-  filter(Nat2017PublicUS, Birth_Month == '06') 
-Juli <-  filter(Nat2017PublicUS, Birth_Month == '07') 
-August <-  filter(Nat2017PublicUS, Birth_Month == '08') 
-September <-  filter(Nat2017PublicUS, Birth_Month == '09') 
-Oktober <-  filter(Nat2017PublicUS, Birth_Month == '10') 
-November <-  filter(Nat2017PublicUS, Birth_Month == '11') 
-Desember <-  filter(Nat2017PublicUS, Birth_Month == '12') 
+gjennomsnitt <- aggregate(Birth_Weight_Grams ~ Birth_Month, Nat2017PublicUS, mean)
 
-mean(Januar$Birth_Weight_Grams) 
-mean(Februar$Birth_Weight_Grams) 
-mean(Mars$Birth_Weight_Grams) 
-mean(April$Birth_Weight_Grams) 
-mean(Mai$Birth_Weight_Grams) 
-mean(Juni$Birth_Weight_Grams) 
-mean(Juli$Birth_Weight_Grams) 
-mean(August$Birth_Weight_Grams) 
-mean(September$Birth_Weight_Grams) 
-mean(Oktober$Birth_Weight_Grams) 
-mean(November$Birth_Weight_Grams) 
-mean(Desember$Birth_Weight_Grams) 
 #Gjennomsnittet varierer
+
+```
+
+```{r konklusjon}
+#Porposjonen mellom gutter og jenter er 1.04
+#Gjennomsnittsvekten er 3267
+#Gjennomsnittet varierer fra måned til måned 
+
 
 ```
 
