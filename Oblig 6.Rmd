@@ -12,6 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(plyr)
 library(reshape)
+library(plyr)
 
 ```
 
@@ -51,21 +52,23 @@ Pol$fk_function_code <-"other expenses"
 
 
 
-
-
-
-
 #Task 2 
 
 #Calculate the share of sales per product per year. The sum over the 3 shares per year is 100.
+
+#looked at https://magesblog.com/post/2012-06-12-transforming-subsets-of-data-in-r-with/ for the solution
 
 df <- data.frame(Product=gl(3,10,labels=c("A","B", "C")), 
                 Year=factor(rep(2002:2011,3)), 
                 Sales=1:30)
 
-test <-  
+fn <- function(x) x/sum(x) # Function for calculating shares
 
+#Making new dataframe with shares
+new_df <- ddply(df, "Year", transform, Share=fn(Sales))
 
-  
-#Klarte ikke å fullføre oppgaven
+#Making a plot
+ggplot() +
+  geom_line(data = new_df, aes ( x = Year, y = Sales, group = Product, color = Product)) +
+labs(title = "Sales and shares per year per company", x = "Year", y = "Shares") 
 
